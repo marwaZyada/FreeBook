@@ -1,5 +1,6 @@
 ﻿using Domain.Entity;
-using Domain.Entity.ViewModel;
+using Domain.Entity.Identity;
+
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

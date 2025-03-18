@@ -1,4 +1,5 @@
-using Domain.Entity.ViewModel;
+using Domain.Entity.Identity;
+
 using Infrastructure.Data;
 
 using Microsoft.AspNetCore.Identity;
@@ -7,13 +8,22 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddViewOptions(options => {
+    options.HtmlHelperOptions.ClientValidationEnabled = true;
+}); 
 builder.Services.AddDbContext<FreeBookDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("BookConnection"));
 });
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<FreeBookDbContext>();
-
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+  
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 1;
+}).AddEntityFrameworkStores<FreeBookDbContext>();
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,7 +36,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
