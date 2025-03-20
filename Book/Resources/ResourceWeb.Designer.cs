@@ -205,6 +205,15 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to المستخدمين.
+        /// </summary>
+        public static string lbRegister {
+            get {
+                return ResourceManager.GetString("lbRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  مجموعة المستخدمين.
         /// </summary>
         public static string lbRoleUser {
@@ -237,6 +246,24 @@ namespace Book.Resources {
         public static string MsLoginError {
             get {
                 return ResourceManager.GetString("MsLoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to خروج.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
     }

@@ -1,7 +1,10 @@
 ﻿
 
 $(document).ready(function () {
-    $('#tableRole').DataTable();
+    $('#tableRole').DataTable({
+        "autoWidth": false,
+        "responsive": true
+    });
 });
 function Delete(id) {
  

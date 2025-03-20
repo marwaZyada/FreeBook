@@ -2,7 +2,10 @@
 
 $(document).ready(function () {
  
-    $('#tableUser').DataTable();
+    $('#tableUser').DataTable({
+        "autoWidth": false,
+        "responsive": true
+    });
 });
 function Delete(id) {
 

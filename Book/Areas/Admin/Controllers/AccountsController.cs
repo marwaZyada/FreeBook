@@ -1,6 +1,7 @@
 ﻿using Domain.Entity;
 using Domain.Entity.Identity;
 using Domain.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
@@ -10,24 +11,33 @@ using Microsoft.EntityFrameworkCore;
 namespace Book.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AccountsController : Controller
     {
+        #region Declaration
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
+        #endregion
+
+        #region Constructor
         public AccountsController(RoleManager<IdentityRole> roleManager,
-            UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager)
+           UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        #endregion
+
+        #region Methods
         public IActionResult Index()
         {
             return View();
         }
-            public IActionResult Roles()
+        [Authorize(Roles ="Admin")]
+        public IActionResult Roles()
         {
             var model = new RolesViewModel
             {
@@ -56,17 +66,12 @@ namespace Book.Areas.Admin.Controllers
                     var result = await _roleManager.CreateAsync(role);
                     if (result.Succeeded)
                     {
-                        HttpContext.Session.SetString("msgtype", "success");
-                        HttpContext.Session.SetString("title", "تم الحفظ");
-                        HttpContext.Session.SetString("msg", "تم حفظ المستخدم بنجاح");
+                        SessionMsg("success", "تم الحفظ", "تم حفظ المستخدم بنجاح");
                         return RedirectToAction("Roles");
                     }
                     else
-                    {
-                        HttpContext.Session.SetString("msgtype", "error");
-                        HttpContext.Session.SetString("title", "لم يتم الحفظ");
-                        HttpContext.Session.SetString("msg", "لم يتم حفظ المستخدم بنجاح");
-                    }
+                        SessionMsg("error", "لم يتم الحفظ", "لم يتم حفظ المستخدم بنجاح");
+
                 }
                 //update
                 else
@@ -77,22 +82,21 @@ namespace Book.Areas.Admin.Controllers
                     var result = await _roleManager.UpdateAsync(RoleUpdate);
                     if (result.Succeeded)
                     {
-                        HttpContext.Session.SetString("msgtype", "success");
-                        HttpContext.Session.SetString("title", "تم التعديل");
-                        HttpContext.Session.SetString("msg", "تم تعديل المستخدم بنجاح");
+                        SessionMsg("success", "تم التعديل", "تم تعديل المستخدم بنجاح");
+
                         return RedirectToAction("Roles");
                     }
                     else
-                    {
-                        HttpContext.Session.SetString("msgtype", "error");
-                        HttpContext.Session.SetString("title", "لم يتم التعديل");
-                        HttpContext.Session.SetString("msg", "لم يتم تعديل المستخدم بنجاح");
-                    }
+                        SessionMsg("error", "لم يتم التعديل", "لم يتم تعديل المستخدم بنجاح");
+
                 }
 
             }
             return RedirectToAction("Roles");
         }
+
+
+
         //delete role
         public async Task<IActionResult> DeleteRole(string id)
         {
@@ -105,7 +109,7 @@ namespace Book.Areas.Admin.Controllers
             return RedirectToAction("Roles");
         }
 
-      
+
         [HttpGet]
         public async Task<IActionResult> Register()
         {
@@ -114,15 +118,15 @@ namespace Book.Areas.Admin.Controllers
             {
                 NewUser = new NewRegister(),
                 Roles = _roleManager.Roles.OrderBy(r => r.Name).ToList(),
-                Users = _userManager.Users.Select(u =>new UserViewModel
+                Users = _userManager.Users.Select(u => new UserViewModel
                 {
-                    Id=u.Id,
+                    Id = u.Id,
                     Name = u.Name,
                     ImageUser = u.ImageUser,
                     Email = u.Email,
                     ActiveUser = u.ActiveUser,
-                   Role =string.Join(',', _userManager.GetRolesAsync(u).Result)
-                }).OrderBy(u=>u.Name).ToList()
+                    Role = string.Join(',', _userManager.GetRolesAsync(u).Result)
+                }).OrderBy(u => u.Name).ToList()
             };
 
             return View(model);
@@ -131,17 +135,17 @@ namespace Book.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            var ImageName="";
+            var ImageName = "";
             var file = HttpContext.Request.Form.Files;
             if ((file.Count() > 0))
             {
 
-                 ImageName = Guid.NewGuid().ToString() + Path.GetExtension(file[0].FileName);
-               model.NewUser.ImageUser = ImageName;
+                ImageName = Guid.NewGuid().ToString() + Path.GetExtension(file[0].FileName);
+                model.NewUser.ImageUser = ImageName;
             }
             else
             {
-            model.NewUser.ImageUser="";
+                model.NewUser.ImageUser = "";
             }
             if (ModelState.IsValid)
             {
@@ -155,11 +159,11 @@ namespace Book.Areas.Admin.Controllers
                     }
                 }
 
-                       
-                   
-               
-               
-           
+
+
+
+
+
                 var user = new ApplicationUser()
                 {
                     Id = model.NewUser.Id!,
@@ -182,26 +186,19 @@ namespace Book.Areas.Admin.Controllers
                         var role = await _userManager.AddToRoleAsync(user, model.NewUser.RoleName);
                         if (role.Succeeded)
                         {
-                            HttpContext.Session.SetString("msgtype", "success");
-                            HttpContext.Session.SetString("title", "تم الحفظ");
-                            HttpContext.Session.SetString("msg", "تم حفظ المستخدم بنجاح");
+                            SessionMsg("success", "تم الحفظ", "تم حفظ المستخدم بنجاح");
+
+
                             return RedirectToAction("Register");
                         }
                         else
-                        {
+                            SessionMsg("error", "لم يتم الحفظ", "لم يتم حفظ مجموعةالمستخدم بنجاح");
 
-                            HttpContext.Session.SetString("msgtype", "error");
-                            HttpContext.Session.SetString("title", "لم يتم الحفظ");
-                            HttpContext.Session.SetString("msg", "لم يتم حفظ مجموعةالمستخدم بنجاح");
-                        }
                     }
                     else
-                    {
 
-                        HttpContext.Session.SetString("msgtype", "error");
-                        HttpContext.Session.SetString("title", "لم يتم الحفظ");
-                        HttpContext.Session.SetString("msg", "لم يتم حفظ المستخدم بنجاح");
-                    }
+                        SessionMsg("error", "لم يتم الحفظ", "لم يتم حفظ المستخدم بنجاح");
+
                 }
 
                 //update user
@@ -213,8 +210,8 @@ namespace Book.Areas.Admin.Controllers
                     userupdate.UserName = model.NewUser.Email.Split('@')[0];
                     userupdate.Email = model.NewUser.Email;
                     userupdate.ActiveUser = model.NewUser.ActiveUser;
-                    if(!string.IsNullOrEmpty(model.NewUser.ImageUser))
-                       userupdate.ImageUser = model.NewUser.ImageUser;
+                    if (!string.IsNullOrEmpty(model.NewUser.ImageUser))
+                        userupdate.ImageUser = model.NewUser.ImageUser;
                     var result = await _userManager.UpdateAsync(userupdate);
                     if (result.Succeeded)
                     {
@@ -222,25 +219,15 @@ namespace Book.Areas.Admin.Controllers
                         await _userManager.RemoveFromRolesAsync(userupdate, oldrole);
                         var addrole = await _userManager.AddToRoleAsync(userupdate, model.NewUser.RoleName);
                         if (addrole.Succeeded)
-                        {
-                            HttpContext.Session.SetString("msgtype", "success");
-                            HttpContext.Session.SetString("title", "تم التعديل");
-                            HttpContext.Session.SetString("msg", "تم تعديل المستخدم بنجاح");
+                            SessionMsg("success", "تم التعديل", "تم تعديل المستخدم بنجاح");
 
-                        }
                         else
-                        {
-                            HttpContext.Session.SetString("msgtype", "error");
-                            HttpContext.Session.SetString("title", "لم يتم التعديل");
-                            HttpContext.Session.SetString("msg", "لم يتم تعديل المستخدم بنجاح");
-                        }
+                            SessionMsg("error", "لم يتم التعديل", "لم يتم تعديل المستخدم بنجاح");
+
                     }
                     else
-                    {
-                        HttpContext.Session.SetString("msgtype", "error");
-                        HttpContext.Session.SetString("title", "لم يتم التعديل");
-                        HttpContext.Session.SetString("msg", "لم يتم تعديل المستخدم بنجاح");
-                    }
+                        SessionMsg("error", "لم يتم التعديل", "لم يتم تعديل المستخدم بنجاح");
+
 
                 }
                 return RedirectToAction("Register");
@@ -258,11 +245,11 @@ namespace Book.Areas.Admin.Controllers
             {
                 if (!string.IsNullOrEmpty(user.ImageUser))
                 {
-                    var path=Path.Combine(@"wwwroot",Helper.DeleteImageUser,user.ImageUser);
-                    if(System.IO.File.Exists(path))
+                    var path = Path.Combine(@"wwwroot", Helper.DeleteImageUser, user.ImageUser);
+                    if (System.IO.File.Exists(path))
                         System.IO.File.Delete(path);
                 }
-                    await _userManager.DeleteAsync(user);
+                await _userManager.DeleteAsync(user);
             }
 
             return RedirectToAction("Register");
@@ -275,30 +262,27 @@ namespace Book.Areas.Admin.Controllers
             if (user != null)
             {
                 await _userManager.RemovePasswordAsync(user);
-                var AddNewPass= await _userManager.AddPasswordAsync(user, model.ChangePassword.NewPassword);
+                var AddNewPass = await _userManager.AddPasswordAsync(user, model.ChangePassword.NewPassword);
                 if (AddNewPass.Succeeded)
-                {
-                    HttpContext.Session.SetString("msgtype", "success");
-                    HttpContext.Session.SetString("title", "  تم التعديل");
-                    HttpContext.Session.SetString("msg", "تم تعديل كلمة المرور بنجاح");
-                }
+                    SessionMsg("success", " يتم التعديل", "تم تعديل كلمة المرور بنجاح");
+
+
                 else
-                {
-                    HttpContext.Session.SetString("msgtype", "error");
-                    HttpContext.Session.SetString("title", "لم يتم التعديل");
-                    HttpContext.Session.SetString("msg", "لم يتم تعديل كلمة المرور بنجاح");
-                }
+                    SessionMsg("error", "لم يتم التعديل", "لم يتم تعديل كلمة المرور بنجاح");
+
                 return RedirectToAction("Register");
             }
             return RedirectToAction("Register");
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -306,7 +290,7 @@ namespace Book.Areas.Admin.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, model.Password,model.RememberMe,false);
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
 
                         return RedirectToAction("Index", "Home");
@@ -316,6 +300,20 @@ namespace Book.Areas.Admin.Controllers
                 }
             }
             return View(model);
+        }
+        public async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Accounts");
+        }
+
+        #endregion
+        // msg
+        private void SessionMsg(string msgtype, string title, string msg)
+        {
+            HttpContext.Session.SetString("msgtype", msgtype);
+            HttpContext.Session.SetString("title", title);
+            HttpContext.Session.SetString("msg", msg);
         }
 
     }

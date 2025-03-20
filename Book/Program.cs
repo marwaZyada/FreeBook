@@ -1,7 +1,9 @@
+using Domain.Entity;
 using Domain.Entity.Identity;
 
 using Infrastructure.Data;
-
+using Infrastructure.IRepositories;
+using Infrastructure.IRepositories.ServicesRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +25,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 1;
 }).AddEntityFrameworkStores<FreeBookDbContext>();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/admin";
+    options.AccessDeniedPath= "/Admin/Home/Denied";
+});
+builder.Services.AddScoped<IservicesRepository<Category>, ServicesCategory>();
 builder.Services.AddSession();
 var app = builder.Build();
 

@@ -181,16 +181,29 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 ">
               
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     @if (signInManager.IsSignedIn(User))
                     {
+                        <div class="d-flex">
                         <div class="image">
-                            <img src="@Helper.PathImageUser/@((await userManager.GetUserAsync(User)).ImageUser)" class="img-circle elevation-2" alt="User Image">
+                            <img src="/@Helper.PathImageUser/@((await userManager.GetUserAsync(User)).ImageUser)" class="img-circle elevation-2" alt="User Image">
                         </div>
-                        <div class="info">
-                            <a href="#" class="d-block">@((await userManager.GetUserAsync(User)).Name)</a>
+                        <div class="info d-block">
+                            <a href="#" class="">@((await userManager.GetUserAsync(User)).Name)</a>
+                           
+                        
                         </div>
+                        </div>
+                   
+
+                        <form asp-action="SignOut" asp-controller="Accounts" method="post">
+
+                            <input type="submit" class="text-primary bg-transparent mt-3 w-100 py-2" value="@ResourceWeb.SignOut" />
+
+                        </form>
+
+
                     }
                 </div>
 
@@ -200,7 +213,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="/" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -209,23 +222,18 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link active">
+                                    <a href="/Admin/Accounts/Roles" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v1</p>
+                                        <p>@ResourceWeb.lbRoleUser</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="/Admin/Accounts/Register" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
+                                        <p>@ResourceWeb.lbRegister</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
+                               
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -644,7 +652,7 @@
                 </div>
             </div>
         </div>
-       
+
         <footer class="main-footer">
             <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
@@ -716,7 +724,7 @@
     <!-- Sweetalert -->
     <script src="~/Admin/plugins/sweetalert2/sweetalert2.all.min.js"></script>
     @* <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
-    
+
     <!-- Include a polyfill for ES6 Promises (optional) for IE11 -->
     <!-- filter -->
     @*<script src="~/Admin/plugins/isotope/isotope.pkgd.min.js"></script>*@
@@ -729,8 +737,8 @@
     <script src="~/Admin/dist/js/pages/dashboard.js"></script>
     @* <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    *@ 
-    
+    *@
+
     @await RenderSectionAsync("Scripts", required: true);
 </body>
 </html>
