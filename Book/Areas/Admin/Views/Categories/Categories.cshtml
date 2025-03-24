@@ -1,0 +1,248 @@
+﻿@model CategoryViewModel
+@inject UserManager<ApplicationUser> userManager
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">@ResourceWeb.lbCategories</h1>
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Home/Index">@ResourceWeb.lbHomePage</a></li>
+                        <li class="breadcrumb-item active">@ResourceWeb.lbManageBook</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-start">
+                        <h3 class="card-title" style="margin-left:20px">@ResourceWeb.lbCategories</h3>
+                        <div class="card-tools ">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="Reset()">
+                                @ResourceWeb.lbbtnSaveNewCategory
+                            </button>
+
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                    
+                        <!-- Tab links -->
+                        <div class="tab">
+                            <button class="tablinks " onclick="openCity(event, 'Category')" id="defaultOpen">@ResourceWeb.lbCategories</button>
+                            <button class="tablinks" onclick="openCity(event, 'LogCategory')">@ResourceWeb.lbLogCategories</button>
+                           
+                        </div>
+
+                        <!-- Tab content -->
+                        <div id="Category" class="tabcontent">
+                            @if (Model.Categories.Count > 0)
+                            {
+                                <table id="tableCategory" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>@ResourceWeb.lbNameCategory</td>
+                                            <td>@ResourceWeb.lbDescriptionCategory</td>
+
+                                            <td>@ResourceWeb.lbEvents</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var category in Model.Categories)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @category.Name
+                                                </td>
+                                                <td>
+                                                    @category.Description
+                                                </td>
+
+                                                <td>
+                                                    <input type="button" class="btn btn-info btn-sm" value="@ResourceWeb.lbbtnEdit" onclick="Edit('@category.Id''@category.Name','@category.Description')" data-bs-toggle="modal" data-bs-target="#exampleModal" />|
+
+                                                    <input type="button" class="btn btn-danger btn-sm" onclick="Delete('@category.Id')" value="@ResourceWeb.lbbtnDelete" />
+
+                                                    @* <a class="btn btn-success btn-sm" asp-action="Index" asp-controller="Permissions" asp-route-RoleId="@item.Id">@ResourceWeb.lbbtnPermissions</a> *@
+                                                </td>
+                                            </tr>
+                                        }
+
+
+
+
+
+
+                                    </tbody>
+
+                                </table>
+                            }
+                            else
+                            {
+                                <div>There is no Categories</div>
+                            }
+                        </div>
+
+                        <div id="LogCategory" class="tabcontent">
+                            @if (Model.Categories.Count > 0)
+                            {
+                                <table id="tableLogCategory" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>@ResourceWeb.lbId</td>
+                                            <td>@ResourceWeb.lbActionName</td>
+                                            <td>@ResourceWeb.lbDate</td>
+                                            <td>@ResourceWeb.lbUserName</td>
+                                            <td>@ResourceWeb.lbCategoryName</td>
+                                            <td>@ResourceWeb.lbEvents</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var category in Model.LogCategories)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    #
+                                                </td>
+                                                <td>
+                                                    @switch (category.Action)
+                                                    {
+                                                        case "Save":
+                                                            <span class="badge badge-success" style="width:150px; height:25px">@category.Action</span>
+                                                            break;
+                                                        case "Update":
+                                                            <span class="badge badge-warning" style="width:150px; height:25px">@category.Action</span>
+                                                            break;
+                                                        default:
+                                                            <span class="badge badge-danger" style="width:150px; height:25px">@category.Action</span>
+                                                            break;
+                                                    }
+                                                    
+                                                </td>
+                                                <td>
+                                                    @category.Date
+                                                </td>
+                                                <td>
+                                                    @userManager.FindByIdAsync(@category.ApplicationUserId).Result.Name
+                                                </td>
+                                                <td>
+                                                    @category.Category.Name
+                                                </td>
+
+                                                <td>
+                                                    <input type="button" class="btn btn-info btn-sm" value="@ResourceWeb.lbbtnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="Edit('@category.Id')" />|
+
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="DeleteLog('@category.Id')">@ResourceWeb.lbbtnDelete</button>
+
+                                                    @* <a class="btn btn-success btn-sm" asp-action="Index" asp-controller="Permissions" asp-route-RoleId="@item.Id">@ResourceWeb.lbbtnPermissions</a> *@
+                                                </td>
+                                            </tr>
+                                        }
+
+
+
+
+
+
+                                    </tbody>
+
+                                </table>
+                            }
+                            else
+                            {
+                                <div>There is no LogCategories</div>
+                            }
+                        </div>
+
+                       
+                       
+                       
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="title">@ResourceWeb.lbbtnSaveNewRole</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" asp-controller="Categories" method="post">
+                    <input type="text" hidden class="form-control" asp-for="NewCategory.Id" id="categoryId" />
+                    <div class="form-group">
+                        <label asp-for="NewCategory.Name" class="control-lable">@ResourceWeb.lbNameCategory</label>
+                        <input type="text" class="form-control" asp-for="NewCategory.Name" id="categoryName" />
+                        <span asp-validation-for="NewCategory.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewCategory.Description" class="control-lable">@ResourceWeb.lbDescriptionCategory</label>
+                        <input type="text" class="form-control" asp-for="NewCategory.Description" id="categorydesc" />
+                        <span asp-validation-for="NewCategory.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="modal-footer-rtl">
+                        <input type="submit" class="btn btn-success" value="@ResourceWeb.lbbtnSave" id="btnSave" />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+<!--/ Modal -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @if (!string.IsNullOrEmpty(Context.Session.GetString("msgtype")))
+    {
+        var msgType = Context.Session.GetString("msgtype");
+        var title = Context.Session.GetString("title");
+        var msg = Context.Session.GetString("msg");
+
+        <script>
+            Swal.fire({
+                position: "center",
+                icon: "@(msgType == "success" ? "success" : "error")",
+                title: "@Html.Raw(title)",
+                text: "@Html.Raw(msg)",
+                confirmButtonText: "حسناً",
+                timer: @(msgType == "success" ? 3500 : 1500)
+                        });
+        </script>
+
+        @* Clear session message after displaying *@
+        Context.Session.Remove("msgtype");
+    }
+
+    <script src="~/js/category.js"></script>
+}
+

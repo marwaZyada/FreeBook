@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lbActionName" xml:space="preserve">
+    <value>اسم العملية</value>
+  </data>
   <data name="lbActiveUser" xml:space="preserve">
     <value>تفعيل المستخدم</value>
   </data>
@@ -132,14 +135,29 @@
   <data name="lbbtnSave" xml:space="preserve">
     <value>حفظ</value>
   </data>
+  <data name="lbbtnSaveNewCategory" xml:space="preserve">
+    <value>أضف فئة جديدة</value>
+  </data>
   <data name="lbbtnSaveNewRole" xml:space="preserve">
     <value>أضف مجموعة جديدة</value>
   </data>
   <data name="lbbtnSaveNewUser" xml:space="preserve">
     <value>أضف مستخدم جديد</value>
   </data>
+  <data name="lbCategories" xml:space="preserve">
+    <value>مجموعة الفئات</value>
+  </data>
+  <data name="lbCategoryName" xml:space="preserve">
+    <value>اسم الفئة</value>
+  </data>
   <data name="lbComparePassword" xml:space="preserve">
     <value>أعد كلمة المرور</value>
+  </data>
+  <data name="lbDate" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="lbDescriptionCategory" xml:space="preserve">
+    <value>وصف الفئة</value>
   </data>
   <data name="lbEmailUser" xml:space="preserve">
     <value>البريد الالكتروني للمستخدم</value>
@@ -150,17 +168,47 @@
   <data name="lbHomePage" xml:space="preserve">
     <value>الصفحة الرئيسية</value>
   </data>
+  <data name="lbId" xml:space="preserve">
+    <value>الرقم التسلسلي</value>
+  </data>
   <data name="lbImageUser" xml:space="preserve">
     <value>صورة المستخدم</value>
   </data>
+  <data name="lbLogCategories" xml:space="preserve">
+    <value>عمليات الفئات</value>
+  </data>
   <data name="lbManageBook" xml:space="preserve">
     <value>إدارة الكتب</value>
+  </data>
+  <data name="lbMsgDublicateNameCategory" xml:space="preserve">
+    <value>لا يستطيع الحفظ لأن اسم الفئة موجود بالفعل</value>
+  </data>
+  <data name="lbMsgNotSave" xml:space="preserve">
+    <value>لم يتم الحفظ بنجاح</value>
+  </data>
+  <data name="lbMsgNotUpdate" xml:space="preserve">
+    <value>لم يتم التعديل بنجاح</value>
+  </data>
+  <data name="lbMsgSave" xml:space="preserve">
+    <value>تم الحفظ بنجاح</value>
+  </data>
+  <data name="lbMsgUpdate" xml:space="preserve">
+    <value>تم التعديل بنجاح</value>
+  </data>
+  <data name="lbNameCategory" xml:space="preserve">
+    <value>اسم الفئة</value>
   </data>
   <data name="lbNameRole" xml:space="preserve">
     <value>اسم المجموعة</value>
   </data>
   <data name="lbNameUser" xml:space="preserve">
     <value>اسم المستخدم</value>
+  </data>
+  <data name="lbNotSave" xml:space="preserve">
+    <value>لم يتم الحفظ</value>
+  </data>
+  <data name="lbNotUpdate" xml:space="preserve">
+    <value>لم يتم التعديل</value>
   </data>
   <data name="lbPassword" xml:space="preserve">
     <value>كلمة المرور</value>
@@ -171,11 +219,23 @@
   <data name="lbRoleUser" xml:space="preserve">
     <value> مجموعة المستخدمين</value>
   </data>
+  <data name="lbSave" xml:space="preserve">
+    <value>تم الحفظ</value>
+  </data>
   <data name="lbSelectUserRole" xml:space="preserve">
     <value>اختر مجموعة المستخدمين</value>
   </data>
+  <data name="lbStateCategory" xml:space="preserve">
+    <value>حالة الفئة</value>
+  </data>
+  <data name="lbUpdate" xml:space="preserve">
+    <value>تم التعديل</value>
+  </data>
   <data name="lbUser" xml:space="preserve">
     <value>  المستخدمين الحاليين</value>
+  </data>
+  <data name="lbUserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
   </data>
   <data name="MsLoginError" xml:space="preserve">
     <value>يوجد خطأ في الايميل أو كلمة السر</value>
@@ -183,7 +243,7 @@
   <data name="SignOut" xml:space="preserve">
     <value>خروج</value>
   </data>
-  <data name="String1" xml:space="preserve">
+  <data name="string1" xml:space="preserve">
     <value />
   </data>
 </root>

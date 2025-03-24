@@ -61,6 +61,15 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اسم العملية.
+        /// </summary>
+        public static string lbActionName {
+            get {
+                return ResourceManager.GetString("lbActionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تفعيل المستخدم.
         /// </summary>
         public static string lbActiveUser {
@@ -106,6 +115,15 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أضف فئة جديدة.
+        /// </summary>
+        public static string lbbtnSaveNewCategory {
+            get {
+                return ResourceManager.GetString("lbbtnSaveNewCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أضف مجموعة جديدة.
         /// </summary>
         public static string lbbtnSaveNewRole {
@@ -124,11 +142,47 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مجموعة الفئات.
+        /// </summary>
+        public static string lbCategories {
+            get {
+                return ResourceManager.GetString("lbCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم الفئة.
+        /// </summary>
+        public static string lbCategoryName {
+            get {
+                return ResourceManager.GetString("lbCategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أعد كلمة المرور.
         /// </summary>
         public static string lbComparePassword {
             get {
                 return ResourceManager.GetString("lbComparePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to التاريخ.
+        /// </summary>
+        public static string lbDate {
+            get {
+                return ResourceManager.GetString("lbDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to وصف الفئة.
+        /// </summary>
+        public static string lbDescriptionCategory {
+            get {
+                return ResourceManager.GetString("lbDescriptionCategory", resourceCulture);
             }
         }
         
@@ -160,6 +214,15 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الرقم التسلسلي.
+        /// </summary>
+        public static string lbId {
+            get {
+                return ResourceManager.GetString("lbId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to صورة المستخدم.
         /// </summary>
         public static string lbImageUser {
@@ -169,11 +232,74 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to عمليات الفئات.
+        /// </summary>
+        public static string lbLogCategories {
+            get {
+                return ResourceManager.GetString("lbLogCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to إدارة الكتب.
         /// </summary>
         public static string lbManageBook {
             get {
                 return ResourceManager.GetString("lbManageBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لا يستطيع الحفظ لأن اسم الفئة موجود بالفعل.
+        /// </summary>
+        public static string lbMsgDublicateNameCategory {
+            get {
+                return ResourceManager.GetString("lbMsgDublicateNameCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لم يتم الحفظ بنجاح.
+        /// </summary>
+        public static string lbMsgNotSave {
+            get {
+                return ResourceManager.GetString("lbMsgNotSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لم يتم التعديل بنجاح.
+        /// </summary>
+        public static string lbMsgNotUpdate {
+            get {
+                return ResourceManager.GetString("lbMsgNotUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم الحفظ بنجاح.
+        /// </summary>
+        public static string lbMsgSave {
+            get {
+                return ResourceManager.GetString("lbMsgSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم التعديل بنجاح.
+        /// </summary>
+        public static string lbMsgUpdate {
+            get {
+                return ResourceManager.GetString("lbMsgUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم الفئة.
+        /// </summary>
+        public static string lbNameCategory {
+            get {
+                return ResourceManager.GetString("lbNameCategory", resourceCulture);
             }
         }
         
@@ -192,6 +318,24 @@ namespace Book.Resources {
         public static string lbNameUser {
             get {
                 return ResourceManager.GetString("lbNameUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لم يتم الحفظ.
+        /// </summary>
+        public static string lbNotSave {
+            get {
+                return ResourceManager.GetString("lbNotSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لم يتم التعديل.
+        /// </summary>
+        public static string lbNotUpdate {
+            get {
+                return ResourceManager.GetString("lbNotUpdate", resourceCulture);
             }
         }
         
@@ -223,6 +367,15 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تم الحفظ.
+        /// </summary>
+        public static string lbSave {
+            get {
+                return ResourceManager.GetString("lbSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to اختر مجموعة المستخدمين.
         /// </summary>
         public static string lbSelectUserRole {
@@ -232,11 +385,38 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حالة الفئة.
+        /// </summary>
+        public static string lbStateCategory {
+            get {
+                return ResourceManager.GetString("lbStateCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم التعديل.
+        /// </summary>
+        public static string lbUpdate {
+            get {
+                return ResourceManager.GetString("lbUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to   المستخدمين الحاليين.
         /// </summary>
         public static string lbUser {
             get {
                 return ResourceManager.GetString("lbUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اسم المستخدم.
+        /// </summary>
+        public static string lbUserName {
+            get {
+                return ResourceManager.GetString("lbUserName", resourceCulture);
             }
         }
         
@@ -261,9 +441,9 @@ namespace Book.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string String1 {
+        public static string string1 {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("string1", resourceCulture);
             }
         }
     }

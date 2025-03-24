@@ -1,3 +1,5 @@
+using AutoMapper;
+using Book.Settings;
 using Domain.Entity;
 using Domain.Entity.Identity;
 
@@ -31,7 +33,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath= "/Admin/Home/Denied";
 });
 builder.Services.AddScoped<IservicesRepository<Category>, ServicesCategory>();
+builder.Services.AddScoped<IServicesRepositoryLog<LogCategory>, ServicesCategoryLog>();
 builder.Services.AddSession();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

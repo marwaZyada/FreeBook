@@ -11,7 +11,7 @@ namespace Infrastructure.IRepositories
         List<T> GetAll();
         T GetBy(Guid id);
         T GetBy(string name);
-        bool Save(T entity);
+        T Save(T entity);
         bool Delete(Guid id);
       
     }

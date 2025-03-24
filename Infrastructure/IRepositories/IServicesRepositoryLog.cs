@@ -10,9 +10,9 @@ namespace Infrastructure.IRepositories
     {
         List<T> GetAll();
         T GetById(Guid id);
-        bool Save(Guid id, Guid userid);
+        bool Save(Guid id, string userid);
         bool DeleteLog(Guid id);
-        bool Delete(Guid id, Guid userid);
-        bool Update(Guid id, Guid userid);
+        bool Delete(Guid id, string userid);
+        bool Update(Guid id, string userid);
     }
 }

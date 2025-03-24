@@ -9,7 +9,7 @@ namespace Domain.Entity
 {
 	public class Category
 	{
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } 
         [Required(ErrorMessageResourceType = typeof(Resources.ResourceData),ErrorMessageResourceName =("CategoryName"))]
         [MaxLength(20,ErrorMessageResourceType = typeof(Resources.ResourceData),ErrorMessageResourceName ="MaxLength")]
 		[MinLength(3, ErrorMessageResourceType = typeof(Resources.ResourceData), ErrorMessageResourceName = "MinLength")]
@@ -17,6 +17,8 @@ namespace Domain.Entity
 		public string Name { get; set; }
         public string Description { get; set; }
         public int CurrentState { get; set; }
-       
+
+      
+
     }
 }

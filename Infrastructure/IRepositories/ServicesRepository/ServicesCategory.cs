@@ -58,10 +58,10 @@ namespace Infrastructure.IRepositories.ServicesRepository
 
         public Category GetBy(string name)
         {
-            return _dbContext.Categories.FirstOrDefault(c => c.Name.Contains(name.Trim())&& c.CurrentState>0);
+            return _dbContext.Categories.FirstOrDefault(c => c.Name.Equals(name.Trim())&& c.CurrentState>0);
         }
 
-        public bool Save(Category entity)
+        public Category Save(Category entity)
         {
             try
             {
@@ -71,24 +71,25 @@ namespace Infrastructure.IRepositories.ServicesRepository
                     entity.Id = Guid.NewGuid();
                     entity.CurrentState = (int)Helper.EcurrentState.Active;
                     _dbContext.Categories.Add(entity);
-               
-                 
+                    _dbContext.SaveChanges();
+                    return entity;
+
                 }
                 else
                 {
                     result.Name = entity.Name;
                     result.Description = entity.Description;
                     result.CurrentState = (int)Helper.EcurrentState.Active;
-                    _dbContext.Categories.Update(entity);
-                    
-                 
+                    _dbContext.Categories.Update(result);
+                    _dbContext.SaveChanges();
+                    return result;
+
                 }
-                _dbContext.SaveChanges();
-                return true;
+              
             }
             catch (Exception ex)
             {
-                return false;
+                return null;
             }
         }
 

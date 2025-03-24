@@ -32,10 +32,7 @@ namespace Book.Areas.Admin.Controllers
         #endregion
 
         #region Methods
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
         [Authorize(Roles ="Admin")]
         public IActionResult Roles()
         {
@@ -151,7 +148,7 @@ namespace Book.Areas.Admin.Controllers
             {
                 if (!string.IsNullOrEmpty(model.NewUser.ImageUser))
                 {
-                    var path = Path.Combine(@"wwwroot", Helper.PathImageUser, ImageName);
+                    var path = Path.Combine(@"wwwroot", Domain.Entity.Helper.PathImageUser, ImageName);
                     if (!System.IO.File.Exists(path))
                     {
                         var filestream = new FileStream(path, FileMode.Create);
@@ -245,7 +242,7 @@ namespace Book.Areas.Admin.Controllers
             {
                 if (!string.IsNullOrEmpty(user.ImageUser))
                 {
-                    var path = Path.Combine(@"wwwroot", Helper.DeleteImageUser, user.ImageUser);
+                    var path = Path.Combine(@"wwwroot", Domain.Entity.Helper.DeleteImageUser, user.ImageUser);
                     if (System.IO.File.Exists(path))
                         System.IO.File.Delete(path);
                 }

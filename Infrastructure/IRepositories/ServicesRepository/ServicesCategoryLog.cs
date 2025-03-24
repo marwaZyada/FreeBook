@@ -1,5 +1,6 @@
 ﻿using Domain.Entity;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.IRepositories.ServicesRepository
 {
-    public class ServicesCategoryLog : IServicesRepositoryLog<Category>
+    public class ServicesCategoryLog : IServicesRepositoryLog<LogCategory>
     {
         private readonly FreeBookDbContext _dbContext;
 
@@ -16,34 +17,116 @@ namespace Infrastructure.IRepositories.ServicesRepository
         {
            _dbContext = dbContext;
         }
-        public bool Delete(Guid id, Guid userid)
+        public bool Delete(Guid id, string userid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var logCategory = new LogCategory()
+                {
+                    Id = Guid.NewGuid(),
+                    Date=DateTime.Now,
+                    Action="Delete",
+                    CategoryId=id,
+                    ApplicationUserId=userid
+                };
+                _dbContext.LogCategories.Add(logCategory);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public bool DeleteLog(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+               var logCategory=_dbContext.LogCategories.Find(id);
+                if (!logCategory.Equals(null))
+                {
+                    _dbContext.LogCategories.Remove(logCategory);
+                    _dbContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public List<Category> GetAll()
+        public List<LogCategory> GetAll()
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                return _dbContext.LogCategories.Include(l=>l.Category).OrderBy(l => l.Date).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
-        public Category GetById(Guid id)
+        public LogCategory GetById(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _dbContext.LogCategories.Include(l=>l.Category).FirstOrDefault(l => l.Id == id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
-        public bool Save(Guid id, Guid userid)
+        public bool Save(Guid id, string userid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var logCategory = new LogCategory()
+                {
+                    Id = Guid.NewGuid(),
+                    Date = DateTime.Now,
+                    Action = "Save",
+                    CategoryId = id,
+                    ApplicationUserId = userid
+                };
+                _dbContext.LogCategories.Add(logCategory);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public bool Update(Guid id, Guid userid)
+        public bool Update(Guid id, string userid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var logCategory = new LogCategory()
+                {
+                    Id = Guid.NewGuid(),
+                    Date = DateTime.Now,
+                    Action = "Update",
+                    CategoryId = id,
+                    ApplicationUserId = userid
+                };
+                _dbContext.LogCategories.Add(logCategory);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
+
+       
     }
 }
