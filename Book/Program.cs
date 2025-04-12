@@ -1,4 +1,5 @@
 using AutoMapper;
+using Book.Permission;
 using Book.Settings;
 using Domain.Entity;
 using Domain.Entity.Identity;
@@ -7,6 +8,7 @@ using Infrastructure.Data;
 using Infrastructure.IRepositories;
 using Infrastructure.IRepositories.ServicesRepository;
 using Infrastructure.Seeds;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +38,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddScoped<IservicesRepository<Category>, ServicesCategory>();
 builder.Services.AddScoped<IServicesRepositoryLog<LogCategory>, ServicesCategoryLog>();
 builder.Services.AddSession();
+builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+{
+    options.ValidationInterval = TimeSpan.Zero;
+});
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 var app = builder.Build();
 //update database

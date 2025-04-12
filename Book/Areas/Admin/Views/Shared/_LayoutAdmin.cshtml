@@ -1,5 +1,7 @@
 ﻿@inject UserManager<ApplicationUser> userManager;
-@inject SignInManager<ApplicationUser> signInManager
+@inject SignInManager<ApplicationUser> signInManager;
+@using Microsoft.AspNetCore.Authorization;
+@inject IAuthorizationService AuthorizationService;
 <!DOCTYPE html>
 <html>
 <head>
@@ -222,18 +224,24 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                @if(AuthorizationService.AuthorizeAsync(User,Domain.Constant.Permission.Roles.View).Result.Succeeded)
+                                {<li class="nav-item">
                                     <a href="/Admin/Accounts/Roles" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@ResourceWeb.lbRoleUser</p>
                                     </a>
                                 </li>
+                                }
+                                @if (AuthorizationService.AuthorizeAsync(User, Domain.Constant.Permission.Register.View).Result.Succeeded)
+
+                                {
                                 <li class="nav-item">
                                     <a href="/Admin/Accounts/Register" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@ResourceWeb.lbRegister</p>
                                     </a>
                                 </li>
+                                }
                                
                             </ul>
                         </li>

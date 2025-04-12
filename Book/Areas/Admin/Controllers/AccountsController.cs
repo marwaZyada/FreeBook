@@ -1,4 +1,5 @@
-﻿using Domain.Entity;
+﻿using Domain.Constant;
+using Domain.Entity;
 using Domain.Entity.Identity;
 using Domain.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Book.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Domain.Constant.Permission.Accounts.View)]
     public class AccountsController : Controller
     {
         #region Declaration
@@ -32,8 +33,8 @@ namespace Book.Areas.Admin.Controllers
         #endregion
 
         #region Methods
-       
-        [Authorize(Roles ="Admin")]
+
+        [Authorize(Domain.Constant.Permission.Roles.View)]
         public IActionResult Roles()
         {
             var model = new RolesViewModel
@@ -45,6 +46,7 @@ namespace Book.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Domain.Constant.Permission.Roles.Create)]
         public async Task<IActionResult> Roles(RolesViewModel model)
         {
             if (ModelState.IsValid)
@@ -95,6 +97,7 @@ namespace Book.Areas.Admin.Controllers
 
 
         //delete role
+        [Authorize(Domain.Constant.Permission.Roles.Delete)]
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -108,6 +111,7 @@ namespace Book.Areas.Admin.Controllers
 
 
         [HttpGet]
+        [Authorize(Domain.Constant.Permission.Register.View)]
         public async Task<IActionResult> Register()
         {
 
@@ -130,6 +134,7 @@ namespace Book.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Domain.Constant.Permission.Register.Create)]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             var ImageName = "";
@@ -234,6 +239,7 @@ namespace Book.Areas.Admin.Controllers
         }
 
         //delete user
+        [Authorize(Domain.Constant.Permission.Register.Delete)]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -298,6 +304,7 @@ namespace Book.Areas.Admin.Controllers
             }
             return View(model);
         }
+        [AllowAnonymous]
         public async Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();

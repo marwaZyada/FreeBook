@@ -21,7 +21,7 @@ namespace Book.Areas.Admin.Controllers
             var role = await _rolemanager.FindByIdAsync(roleid);
               
             var claims = _rolemanager.GetClaimsAsync(role).Result.Select(x => x.Value);
-            var allpemissions = Permission.PermissionsList()
+            var allpemissions = Domain.Constant.Permission.PermissionsList()
             .Select(per => new RoleClaimsViewModel
             {
                
@@ -44,7 +44,7 @@ namespace Book.Areas.Admin.Controllers
             return View(pemissions);
         }
         [HttpPost("UpdatePermission")]
-    
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdatePermissions(PermissionViewModel model)
         {
             var role=await _rolemanager.FindByIdAsync(model.RoleId);
