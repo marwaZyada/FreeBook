@@ -106,6 +106,15 @@ namespace Book.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الصلاحيات.
+        /// </summary>
+        public static string lbbtnPermissions {
+            get {
+                return ResourceManager.GetString("lbbtnPermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to حفظ.
         /// </summary>
         public static string lbbtnSave {
@@ -246,6 +255,15 @@ namespace Book.Resources {
         public static string lbManageBook {
             get {
                 return ResourceManager.GetString("lbManageBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إدارة الصلاحيات.
+        /// </summary>
+        public static string lbManagePermission {
+            get {
+                return ResourceManager.GetString("lbManagePermission", resourceCulture);
             }
         }
         
@@ -435,15 +453,6 @@ namespace Book.Resources {
         public static string SignOut {
             get {
                 return ResourceManager.GetString("SignOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string string1 {
-            get {
-                return ResourceManager.GetString("string1", resourceCulture);
             }
         }
     }

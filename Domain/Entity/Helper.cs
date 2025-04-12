@@ -15,5 +15,19 @@ namespace Domain.Entity
         Active=1,
         Delete=0
         }
+
+
+        public enum Roles
+        {
+           SuperAdmin,
+           Admin,
+           Basic
+        }
+
+        public enum PermissionModuleName
+        {
+            Home,Roles,Register,Accounts,Categories
+        }
+        public const string Permission = "Permission";
     }
 }

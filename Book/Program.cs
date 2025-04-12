@@ -6,6 +6,7 @@ using Domain.Entity.Identity;
 using Infrastructure.Data;
 using Infrastructure.IRepositories;
 using Infrastructure.IRepositories.ServicesRepository;
+using Infrastructure.Seeds;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +37,26 @@ builder.Services.AddScoped<IservicesRepository<Category>, ServicesCategory>();
 builder.Services.AddScoped<IServicesRepositoryLog<LogCategory>, ServicesCategoryLog>();
 builder.Services.AddSession();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 var app = builder.Build();
+//update database
+using var scope = app.Services.CreateScope();
+var services= scope.ServiceProvider;
+try
+{
+    var usermanager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    var rolemanager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    await DefaultRoles.SeedRoleAsync(rolemanager);
+    await DefaultUsers.SeedUsersAsync(usermanager, rolemanager);
+}
+catch (Exception)
+{
+
+    throw;
+}
+
+//var dbcontext = services.GetRequiredService<FreeBookDbContext>();
+//await dbcontext.Database.MigrateAsync();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

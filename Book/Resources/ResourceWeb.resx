@@ -132,6 +132,9 @@
   <data name="lbbtnEdit" xml:space="preserve">
     <value>تعديل</value>
   </data>
+  <data name="lbbtnPermissions" xml:space="preserve">
+    <value>الصلاحيات</value>
+  </data>
   <data name="lbbtnSave" xml:space="preserve">
     <value>حفظ</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="lbManageBook" xml:space="preserve">
     <value>إدارة الكتب</value>
+  </data>
+  <data name="lbManagePermission" xml:space="preserve">
+    <value>إدارة الصلاحيات</value>
   </data>
   <data name="lbMsgDublicateNameCategory" xml:space="preserve">
     <value>لا يستطيع الحفظ لأن اسم الفئة موجود بالفعل</value>
@@ -242,8 +248,5 @@
   </data>
   <data name="SignOut" xml:space="preserve">
     <value>خروج</value>
-  </data>
-  <data name="string1" xml:space="preserve">
-    <value />
   </data>
 </root>
